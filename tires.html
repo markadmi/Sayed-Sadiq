@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>قسم الإطارات - القاهرة للإطارات والبطاريات</title>
+    <!-- استدعاء خط جوجل للغة العربية -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        /* إعدادات الألوان المتناسقة */
+        :root {
+            --bg-color: #0a0a0a;
+            --card-bg: #1a1a1a;
+            --accent-gold: #ffbb00;
+            --text-main: #ffffff;
+            --text-muted: #aaaaaa;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+
+        /* شريط علوي بسيط */
+        header {
+            padding: 20px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #333;
+            background-color: #000;
+        }
+
+        .back-btn {
+            color: var(--text-main);
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: color 0.3s;
+        }
+
+        .back-btn:hover {
+            color: var(--accent-gold);
+        }
+
+        /* عنوان القسم */
+        .section-header {
+            text-align: center;
+            padding: 40px 20px 20px;
+        }
+
+        .section-header h1 {
+            color: var(--accent-gold);
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .section-header p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+
+        /* ----- تصميم الفلتر (البحث بالمقاس) ----- */
+        .filter-container {
+            background-color: var(--card-bg);
+            border: 1px solid #333;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 0 auto 40px;
+            max-width: 800px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            align-items: flex-end;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .filter-group label {
+            color: var(--accent-gold);
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        .filter-group select {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            border: 1px solid #444;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 1rem;
+            min-width: 140px;
+            outline: none;
+            cursor: pointer;
+            transition: border-color 0.3s;
+        }
+
+        .filter-group select:focus,
+        .filter-group select:hover {
+            border-color: var(--accent-gold);
+        }
+
+        .reset-btn {
+            background-color: transparent;
+            color: var(--text-muted);
+            border: 1px solid #444;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 700;
+            transition: all 0.3s;
+        }
+
+        .reset-btn:hover {
+            background-color: #333;
+            color: white;
+        }
+
+        /* شبكة المنتجات */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 25px;
+            padding: 0 5% 50px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .product-card {
+            background-color: var(--card-bg);
+            border: 1px solid #333;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent-gold);
+            box-shadow: 0 10px 20px rgba(255, 187, 0, 0.15);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 200px;
+            background-color: #222;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            /* صورة إطار كخلفية */
+            background-image: url('image/tires.png');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .product-title {
+            font-size: 1.4rem;
+            color: var(--text-main);
+            margin-bottom: 10px;
+        }
+
+        .product-desc {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+            direction: ltr; /* لجعل الأرقام تظهر بشكل صحيح */
+            display: inline-block;
+        }
+
+        .product-price {
+            font-size: 1.6rem;
+            color: var(--accent-gold);
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .buy-btn {
+            background-color: transparent;
+            color: var(--accent-gold);
+            border: 2px solid var(--accent-gold);
+            padding: 10px;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .product-card:hover .buy-btn {
+            background-color: var(--accent-gold);
+            color: #000;
+        }
+
+        /* رسالة عند عدم وجود مقاس متطابق */
+        .no-results {
+            display: none;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 1.2rem;
+            grid-column: 1 / -1;
+            padding: 40px;
+        }
+        
+        .cart-link {
+            color: #ffbb00; /* اللون الذهبي الخاص بك */
+            text-decoration: none;
+            font-weight: 700;
+            background: #222;
+            padding: 5px 15px;
+            border-radius: 6px;
+            border: 1px solid #ffbb00;
+            transition: all 0.3s ease;
+        }
+
+        .cart-link:hover {
+            background-color: #ffbb00;
+            color: #000;
+        }
+    </style>
+</head>
+<body>
+    <!-- عنصر الصوت تمت إضافته هنا -->
+    <audio id="ClikToAdd" src="sound/add.ogg"></audio>
+
+    <!-- شريط علوي -->
+    <header>
+        <div style="color: var(--accent-gold); font-weight: 900; font-size: 1.2rem;">القاهرة للإطارات والبطاريات</div>
+        <a href="cart.html" class="cart-link" id="cartCounter">السلة (0)</a>
+        <a href="index.html" class="back-btn">
+            <span>&rarr;</span> العودة للرئيسية
+        </a>
+    </header>
+
+    <!-- عنوان القسم -->
+    <div class="section-header">
+        <h1>قسم الإطارات</h1>
+        <p>اختر مقاس إطار سيارتك لتصفية النتائج وعرض الماركات المتاحة</p>
+    </div>
+
+    <!-- فلتر البحث بالمقاس -->
+    <div class="filter-container">
+        <!-- العرض -->
+        <div class="filter-group">
+            <label for="width">العرض (Width)</label>
+            <select id="width" onchange="filterTires()">
+                <option value="all">الكل</option>
+                <option value="175">175</option>
+                <option value="185">185</option>
+                <option value="195">195</option>
+                <option value="205">205</option>
+                <option value="225">225</option>
+            </select>
+        </div>
+
+        <!-- الارتفاع -->
+        <div class="filter-group">
+            <label for="profile">الارتفاع (Profile)</label>
+            <select id="profile" onchange="filterTires()">
+                <option value="all">الكل</option>
+                <option value="45">45</option>
+                <option value="50">50</option>
+                <option value="55">55</option>
+                <option value="60">60</option>
+                <option value="65">65</option>
+                <option value="70">70</option>
+            </select>
+        </div>
+
+        <!-- الجنط -->
+        <div class="filter-group">
+            <label for="rim">الجنط (Rim)</label>
+            <select id="rim" onchange="filterTires()">
+                <option value="all">الكل</option>
+                <option value="13">R 13</option>
+                <option value="14">R 14</option>
+                <option value="15">R 15</option>
+                <option value="16">R 16</option>
+                <option value="17">R 17</option>
+            </select>
+        </div>
+
+        <button class="reset-btn" onclick="resetFilters()">إلغاء الفلتر</button>
+    </div>
+
+    <!-- شبكة المنتجات (الكروت) -->
+    <div class="products-grid" id="tiresGrid">
+        
+        <!-- كارت منتج 1 -->
+        <div class="product-card" data-width="195" data-profile="65" data-rim="15">
+            <div class="product-image"></div>
+            <div>
+                <h3 class="product-title">إطار ميشلان (Michelin)</h3>
+                <p class="product-desc">195/65/R15</p>
+                <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 10px;">نقشة رياضية - ثبات عالي</p>
+            </div>
+            <div>
+                <div class="product-price">3,500 ج.م</div>
+                <!-- تمت إضافة onclick هنا -->
+                <button class="buy-btn" onclick="addToCart('إطار ميشلان (Michelin)', '195/65/R15', 3500, 'image/tires.png')">أضف إلى السلة</button>
+            </div>
+        </div>
+
+        <!-- كارت منتج 2 -->
+        <div class="product-card" data-width="205" data-profile="55" data-rim="16">
+            <div class="product-image"></div>
+            <div>
+                <h3 class="product-title">إطار بريدجستون (Bridgestone)</h3>
+                <p class="product-desc">205/55/R16</p>
+                <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 10px;">عمر افتراضي طويل</p>
+            </div>
+            <div>
+                <div class="product-price">4,100 ج.م</div>
+                <!-- تمت إضافة onclick هنا -->
+                <button class="buy-btn" onclick="addToCart('إطار بريدجستون (Bridgestone)', '205/55/R16', 4100, 'image/tires.png')">أضف إلى السلة</button>
+            </div>
+        </div>
+
+        <!-- كارت منتج 3 -->
+        <div class="product-card" data-width="175" data-profile="70" data-rim="13">
+            <div class="product-image"></div>
+            <div>
+                <h3 class="product-title">إطار هانكوك (Hankook)</h3>
+                <p class="product-desc">175/70/R13</p>
+                <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 10px;">نعومة على الطريق</p>
+            </div>
+            <div>
+                <div class="product-price">2,200 ج.م</div>
+                <!-- تمت إضافة onclick هنا -->
+                <button class="buy-btn" onclick="addToCart('إطار هانكوك (Hankook)', '175/70/R13', 2200, 'image/tires.png')">أضف إلى السلة</button>
+            </div>
+        </div>
+
+        <!-- كارت منتج 4 -->
+        <div class="product-card" data-width="225" data-profile="45" data-rim="17">
+            <div class="product-image"></div>
+            <div>
+                <h3 class="product-title">إطار كونتيننتال (Continental)</h3>
+                <p class="product-desc">225/45/R17</p>
+                <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 10px;">أداء استثنائي - ألماني</p>
+            </div>
+            <div>
+                <div class="product-price">5,800 ج.م</div>
+                <!-- تمت إضافة onclick هنا -->
+                <button class="buy-btn" onclick="addToCart('إطار كونتيننتال (Continental)', '225/45/R17', 5800, 'image/tires.png')">أضف إلى السلة</button>
+            </div>
+        </div>
+        
+        <!-- كارت منتج 5 -->
+        <div class="product-card" data-width="195" data-profile="65" data-rim="15">
+            <div class="product-image"></div>
+            <div>
+                <h3 class="product-title">إطار نيكسن (Nexen)</h3>
+                <p class="product-desc">195/65/R15</p>
+                <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 10px;">اقتصادي واعتمادي</p>
+            </div>
+            <div>
+                <div class="product-price">2,800 ج.م</div>
+                <!-- تمت إضافة onclick هنا -->
+                <button class="buy-btn" onclick="addToCart('إطار نيكسن (Nexen)', '195/65/R15', 2800, 'image/tires.png')">أضف إلى السلة</button>
+            </div>
+        </div>
+
+        <!-- رسالة الخطأ -->
+        <div id="noResults" class="no-results">
+            عفواً، لا يوجد إطارات متوفرة بهذا المقاس حالياً.
+        </div>
+
+    </div>
+
+    <!-- سكريبت الفلترة والسلة -->
+    <script>
+        // --- 1. متغيرات السلة والصوت ---
+        const clikSound = document.getElementById('ClikToAdd');
+        const CART_KEY = 'cairo_cart';
+
+        // --- 2. دوال الفلترة الخاصة بالإطارات ---
+        function filterTires() {
+            const selectedWidth = document.getElementById('width').value;
+            const selectedProfile = document.getElementById('profile').value;
+            const selectedRim = document.getElementById('rim').value;
+            
+            const cards = document.querySelectorAll('.product-card');
+            let hasVisibleCards = false;
+
+            cards.forEach(card => {
+                const cardWidth = card.getAttribute('data-width');
+                const cardProfile = card.getAttribute('data-profile');
+                const cardRim = card.getAttribute('data-rim');
+
+                const widthMatch = (selectedWidth === 'all' || selectedWidth === cardWidth);
+                const profileMatch = (selectedProfile === 'all' || selectedProfile === cardProfile);
+                const rimMatch = (selectedRim === 'all' || selectedRim === cardRim);
+
+                if (widthMatch && profileMatch && rimMatch) {
+                    card.style.display = 'flex';
+                    hasVisibleCards = true;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            const noResultsMessage = document.getElementById('noResults');
+            if (hasVisibleCards) {
+                noResultsMessage.style.display = 'none';
+            } else {
+                noResultsMessage.style.display = 'block';
+            }
+        }
+
+        function resetFilters() {
+            document.getElementById('width').value = 'all';
+            document.getElementById('profile').value = 'all';
+            document.getElementById('rim').value = 'all';
+            filterTires();
+        }
+
+        // --- 3. دوال السلة (إضافة وتحديث العداد) ---
+        function updateCartCount() {
+            let cart = JSON.parse(localStorage.getItem(CART_KEY)) || [];
+            
+            let totalItems = 0;
+            cart.forEach(item => {
+                totalItems += item.qty; 
+            });
+
+            const counterElement = document.getElementById('cartCounter');
+            if (counterElement) {
+                counterElement.innerText = `السلة (${totalItems})`;
+            }
+        }
+
+        function addToCart(productName, productDesc, productPrice, productImage) {
+            // تشغيل الصوت
+            if (clikSound) {
+                clikSound.currentTime = 0; 
+                clikSound.play();
+            }
+
+            // جلب السلة
+            let cart = JSON.parse(localStorage.getItem(CART_KEY)) || [];
+            let existingItem = cart.find(item => item.name === productName);
+
+            if (existingItem) {
+                existingItem.qty += 1;
+            } else {
+                cart.push({
+                    name: productName,
+                    desc: productDesc,
+                    price: productPrice,
+                    qty: 1,
+                    image: productImage
+                });
+            }
+
+            // حفظ السلة وتحديث العداد
+            localStorage.setItem(CART_KEY, JSON.stringify(cart));
+            updateCartCount(); 
+            
+            alert('تم إضافة المنتج بنجاح إلى السلة!');
+        }
+
+        // تشغيل العداد فور تحميل الصفحة
+        window.addEventListener('load', updateCartCount);
+
+    </script>
+</body>
+</html>

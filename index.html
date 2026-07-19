@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>القاهرة لتجارة الإطارات والبطاريات</title>
+    <!-- استدعاء خط جوجل للغة العربية -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        /* إعدادات عامة وأنيميشن رئيسية */
+        :root {
+            --primary-dark: #1a1a1a;
+            --accent-gold: #f39c12; 
+            --light-bg: #000000;
+            --text-main: #2c3e50;
+            --card-bg: #403b3b;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--light-bg);
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+
+        /* أنيميشن الدخول */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* شريط التنقل (Header) - تأثير زجاجي أنيق */
+        header {
+            background-color: rgba(26, 26, 26, 0.9);
+            backdrop-filter: blur(10px);
+            color: white;
+            padding: 15px 5% ;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: 900;
+            color: var(--accent-gold);
+            letter-spacing: 1px;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 25px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        /* خط سفلي يتحرك عند الهوفر */
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            right: 0;
+            background-color: var(--accent-gold);
+            transition: width 0.3s ease;
+        }
+
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+        nav ul li a:hover {
+            color: var(--accent-gold);
+        }
+
+        /* القسم الرئيسي (Hero Section) */
+        .hero {
+            background-image: linear-gradient(rgba(26, 26, 26, 0.8), rgba(26, 26, 26, 0.1)), url('image/logo.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed; /* تأثير بارالاكس خفيف */
+            height: 85vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            padding: 20px;
+            animation: fadeIn 1.5s ease-out;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            color: var(--accent-gold);
+            animation: fadeInUp 1s ease-out 0.3s both;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 40px;
+            max-width: 700px;
+            color: #ddd;
+            animation: fadeInUp 1s ease-out 0.6s both;
+        }
+
+        .btn-main {
+            background-color: var(--accent-gold);
+            color: var(--primary-dark);
+            padding: 15px 40px;
+            border-radius: 30px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(243, 156, 18, 0.4);
+            animation: fadeInUp 1s ease-out 0.9s both;
+        }
+
+        .btn-main:hover {
+            background-color: #f1c40f;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(243, 156, 18, 0.6);
+        }
+
+        /* قسم الأقسام الرئيسية (Categories) */
+        .section-title {
+            text-align: center;
+            margin: 80px 0 40px;
+            font-size: 2.5rem;
+            color: var(--primary-dark);
+            font-weight: 900;
+            position: relative;
+            color:#ffffff;
+        }
+
+        /* ديكور بسيط تحت العنوان */
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background-color: var(--accent-gold);
+            margin: 15px auto 0;
+            border-radius: 2px;
+        }
+
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            padding: 0 5%;
+            margin-bottom: 80px;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* كارت القسم (قابل للضغط بالكامل) */
+        .category-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            overflow: hidden;
+            text-decoration: none; /* إزالة خط الرابط */
+            color: var(--text-main);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            display: block;
+        }
+
+        .category-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 15px 40px rgba(243, 156, 18, 0.15);
+        }
+
+        .category-image {
+            height: 250px;
+            width: 100%;
+            background-size: cover;
+            background-position: center;
+            transition: transform 0.5s ease;
+        }
+
+        .category-card:hover .category-image {
+            transform: scale(1.05); /* تكبير الصورة عند الهوفر */
+        }
+
+        /* صور الأقسام التوضيحية */
+        .img-tires { background-image: url('image/tires.png'); }
+        .img-batteries { background-image: url('image/batteries.jpg'); }
+        .img-oils { background-image: url('image/oils.png'); }
+        .img-rims{ background-image: url('image/rims.jpg');}
+
+        .category-content {
+            padding: 25px;
+            text-align: center;
+            background-color: var(--card-bg);
+            position: relative;
+            z-index: 2;
+        }
+
+        .category-content h3 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            color: var(--primary-dark);
+        }
+
+        .category-content p {
+            font-size: 1rem;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .category-btn {
+            display: inline-block;
+            padding: 8px 20px;
+            border: 2px solid var(--accent-gold);
+            color: var(--accent-gold);
+            border-radius: 20px;
+            font-weight: 700;
+            transition: all 0.3s ease;
+        }
+
+        .category-card:hover .category-btn {
+            background-color: var(--accent-gold);
+            color: var(--primary-dark);
+        }
+
+        /* التذييل (Footer) */
+        footer {
+            background-color: var(--primary-dark);
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+            border-top: 5px solid var(--accent-gold);
+        }
+
+        footer h2 {
+            color: var(--accent-gold);
+            margin-bottom: 15px;
+        }
+
+        /* استعلامات الوسائط للهواتف */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                gap: 15px;
+                padding: 15px;
+            }
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            .categories-grid {
+                padding: 0 20px;
+            }
+        }
+
+        
+    .cart-link {
+        color: #ffbb00; /* اللون الذهبي الخاص بك */
+        text-decoration: none;
+        font-weight: 700;
+        background: #222;
+        padding: 5px 15px;
+        border-radius: 6px;
+        border: 1px solid #ffbb00;
+        transition: all 0.3s ease;
+    }
+
+    .cart-link:hover {
+        background-color: #ffbb00;
+        color: #000;
+    }
+    </style>
+</head>
+<body>
+
+    <!-- شريط التنقل -->
+    <header>
+        <div class="logo">القاهرة للإطارات والبطاريات</div>
+        <a href="cart.html" class="cart-link" id="cartCounter">السلة (0)</a>
+        <nav>
+            <ul>
+                <li><a href="#home">الرئيسية</a></li>
+                <li><a href="#categories">الأقسام</a></li>
+                <li><a href="#contact">تواصل معنا</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- واجهة الموقع (البطل) -->
+    <section id="home" class="hero">
+        <h1>أمانك على الطريق يبدأ من هنا</h1>
+        <a href="#categories" class="btn-main">تصفح الأقسام الآن</a>
+    </section>
+
+    <!-- الأقسام الرئيسية بدلاً من المنتجات الفردية -->
+    <h2 class="section-title" id="categories">أقسام المتجر</h2>
+    <div class="categories-grid">
+        
+        <!-- قسم الإطارات (يأخذ العميل لصفحة الإطارات) -->
+        <a href="tires.html" class="category-card">
+            <div class="category-image img-tires"></div>
+            <div class="category-content">
+                <h3 style="color:#ffffff;">قسم الإطارات</h3>
+                <span class="category-btn">عرض الإطارات</span>
+            </div>
+        </a>
+
+        <!-- قسم البطاريات (يأخذ العميل لصفحة البطاريات) -->
+        <a href="batteries.html" class="category-card">
+            <div class="category-image img-batteries"></div>
+            <div class="category-content">
+                <h3 style="color:#ffffff;">قسم البطاريات</h3>
+                <span class="category-btn">عرض البطاريات</span>
+            </div>
+        </a>
+
+        <!-- قسم الزيوت (يأخذ العميل لصفحة الزيوت) -->
+        <a href="oils.html" class="category-card">
+            <div class="category-image img-oils"></div>
+            <div class="category-content">
+                <h3 style="color:#ffffff;">زيوت ومكملات</h3>
+                <span class="category-btn">عرض الزيوت</span>
+            </div>
+        </a>
+         <a href="rims.html" class="category-card">
+            <div class="category-image img-rims"></div>
+            <div class="category-content">
+                <h3 style="color:#ffffff;">جنوط سيارات</h3>
+                <span class="category-btn">عرض الجنوط</span>
+            </div>
+        </a>
+
+    </div>
+
+    <!-- التذييل -->
+    <footer id="contact">
+        <h2>القاهرة لتجارة الإطارات والبطاريات</h2>
+        <p>العنوان: الجيزة، جمهورية مصر العربية</p>
+        <p>هاتف: 01xxxxxxxxx | واتساب: 01xxxxxxxxx</p>
+        <p style="margin-top: 20px; font-size: 0.9rem; color: #888;">&copy; 2026 جميع الحقوق محفوظة.</p>
+    </footer>
+
+    <script>
+        function updateCartCount() {
+            const CART_KEY = 'cairo_cart';
+            let cart = JSON.parse(localStorage.getItem(CART_KEY)) || [];
+    
+            let totalItems = 0;
+            cart.forEach(item => {
+            totalItems += item.qty; 
+            });
+
+            const counterElement = document.getElementById('cartCounter');
+            if (counterElement) {
+                counterElement.innerText = `السلة (${totalItems})`;
+            }
+        }
+
+        // تشغيل العداد فور تحميل الصفحة
+        window.addEventListener('load', updateCartCount);
+    </script>
+
+</body>
+</html>
