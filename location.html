@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>فروعنا - مركز صيانة السيارات</title>
+
+    <!-- مكتبة الأيقونات FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary-gold: #ffc107;
+            --dark-bg: #111111;
+            --card-bg: #1a1a1a;
+            --text-color: #ffffff;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Cairo', sans-serif;
+            background-color: #222; 
+            color: var(--text-color);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* تنسيق العنوان الرئيسي */
+        .section-title-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title-wrapper::before,
+        .section-title-wrapper::after {
+            content: '';
+            flex: 1;
+            height: 2px;
+            background-color: var(--primary-gold);
+            opacity: 0.7;
+        }
+
+        .section-title {
+            background-color: var(--dark-bg);
+            border: 2px dashed var(--primary-gold);
+            border-radius: 30px;
+            padding: 5px 40px;
+            margin: 0 20px;
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--text-color);
+            text-align: center;
+        }
+
+        /* حاوية الفروع لتكون تحت بعضها */
+        .branches-list {
+            display: flex;
+            flex-direction: column; /* ترتيب العناصر عمودياً */
+            gap: 40px; /* المسافة بين الفروع */
+            max-width: 600px; /* تحديد عرض أقصى حتى لا يصبح الكارت عريضاً جداً في الشاشات الكبيرة */
+            margin: 0 auto; /* توسيط القائمة في المنتصف */
+        }
+
+        /* تنسيق كارت الفرع */
+        .branch-card {
+            background-color: var(--dark-bg);
+            border: 2px solid var(--primary-gold);
+            border-radius: 12px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 30px 20px 45px; /* مسافة داخلية مع ترك مساحة سفلية للأيقونة */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .branch-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(255, 193, 7, 0.2);
+        }
+
+        .branch-card h3 {
+            margin: 0 0 20px 0;
+            text-align: center;
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--text-color);
+        }
+
+        /* تنسيق رابط الفرع (الزر) */
+        .branch-link {
+            display: inline-block;
+            background-color: var(--primary-gold);
+            color: var(--dark-bg);
+            padding: 10px 35px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: 800;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .branch-link:hover {
+            background-color: #e0a800;
+            transform: scale(1.05);
+        }
+
+        /* تنسيق الأيقونة الدائرية السفلية */
+        .card-icon {
+            position: absolute;
+            bottom: -25px; /* تخرج من الإطار للأسفل */
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 50px;
+            background-color: var(--dark-bg);
+            border: 2px solid var(--primary-gold);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+        }
+
+        .card-icon i {
+            color: var(--primary-gold);
+            font-size: 24px;
+        }
+
+        /* شاشات الموبايل الصغيرة */
+        @media (max-width: 600px) {
+            .section-title {
+                font-size: 22px;
+                padding: 5px 20px;
+            }
+            .branch-card h3 {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- العنوان الرئيسي -->
+        <div class="section-title-wrapper">
+            <div class="section-title">فروعنا</div>
+        </div>
+
+        <!-- قائمة الفروع (تحت بعضها) -->
+        <div class="branches-list">
+
+            <!-- كارت الفرع 1 -->
+            <div class="branch-card">
+                <h3>فرع عرابي الجديد</h3>
+                <!-- ضع رابط الخريطة مكان علامة # -->
+                <a href="https://maps.app.goo.gl/HaAG7AHSZ2tC26UZ9" class="branch-link">الذهاب للفرع</a>
+                <div class="card-icon">
+                    <i class="fa-solid fa-map-location-dot"></i>
+                </div>
+            </div>
+
+            <!-- كارت الفرع 2 -->
+            <div class="branch-card">
+                <h3>فرع عرابي القديم</h3>
+                <!-- ضع رابط الخريطة مكان علامة # -->
+                <a href="https://maps.app.goo.gl/JJRqpibkAMNH7dht6" class="branch-link">الذهاب للفرع</a>
+                <div class="card-icon">
+                    <i class="fa-solid fa-map-location-dot"></i>
+                </div>
+            </div>
+
+            <!-- كارت الفرع 3 -->
+            <div class="branch-card">
+                <h3>فرع الدائري</h3>
+                <!-- ضع رابط الخريطة مكان علامة # -->
+                <a href="https://maps.app.goo.gl/q45GoHNpCwG9wiaCA" class="branch-link">الذهاب للفرع</a>
+                <div class="card-icon">
+                    <i class="fa-solid fa-map-location-dot"></i>
+                </div>
+            </div>
+
+            <!-- كارت الفرع 4 -->
+            <div class="branch-card">
+                <h3>فرع السلام</h3>
+                <!-- ضع رابط الخريطة مكان علامة # -->
+                <a href="https://maps.app.goo.gl/FULg5qkpFVxuQCGR6" class="branch-link">الذهاب للفرع</a>
+                <div class="card-icon">
+                    <i class="fa-solid fa-map-location-dot"></i>
+                </div>
+            </div>
+
+            <!-- كارت الفرع 5 -->
+            <div class="branch-card">
+                <h3>فرع النوباريا اسكندريا</h3>
+                <!-- ضع رابط الخريطة مكان علامة # -->
+                <a href="https://maps.app.goo.gl/tsqckzMxJJVK1b8c6" class="branch-link">الذهاب للفرع</a>
+                <div class="card-icon">
+                    <i class="fa-solid fa-map-location-dot"></i>
+                </div>
+            </div>
+
+            <!-- كارت الفرع 6 -->
+            <div class="branch-card">
+                <h3>فرع مسطرد</h3>
+                <!-- ضع رابط الخريطة مكان علامة # -->
+                <a href="https://maps.app.goo.gl/E3YQBMd6PLoWVGdy8" class="branch-link">الذهاب للفرع</a>
+                <div class="card-icon">
+                    <i class="fa-solid fa-map-location-dot"></i>
+                </div>
+            </div>
+
+            <!-- كارت الفرع 7 -->
+            <div class="branch-card">
+                <h3>فرع المهندسين</h3>
+                <!-- ضع رابط الخريطة مكان علامة # -->
+                <a href="https://maps.app.goo.gl/11taznBCAXkvD9gQ7" class="branch-link">الذهاب للفرع</a>
+                <div class="card-icon">
+                    <i class="fa-solid fa-map-location-dot"></i>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>

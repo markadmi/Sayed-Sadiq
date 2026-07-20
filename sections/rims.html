@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>قسم الجنوط - القاهرة للإطارات والبطاريات</title>
+    <!-- خطوط جوجل -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-color: #0a0a0a;
+            --card-bg: #1a1a1a;
+            --accent-gold: #ffbb00;
+            --text-main: #ffffff;
+            --text-muted: #aaaaaa;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+
+        header {
+            padding: 20px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #333;
+            background-color: #000;
+        }
+
+        .back-btn {
+            color: var(--text-main);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .back-btn:hover { color: var(--accent-gold); }
+
+        .section-header {
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .section-header h1 {
+            color: var(--accent-gold);
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        /* الفلتر */
+        .filter-container {
+            background-color: var(--card-bg);
+            border: 1px solid #333;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 0 auto 40px;
+            max-width: 600px;
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            flex: 1;
+        }
+
+        .filter-group label {
+            color: var(--accent-gold);
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        .filter-group select {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            border: 1px solid #444;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 1rem;
+            outline: none;
+            cursor: pointer;
+        }
+
+        .filter-group select:focus { border-color: var(--accent-gold); }
+
+        /* الكروت */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 25px;
+            padding: 0 5% 50px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .product-card {
+            background-color: var(--card-bg);
+            border: 1px solid #333;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent-gold);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 200px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            background-color: #222;
+            background-image: url('image/rims.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .product-title {
+            font-size: 1.4rem;
+            color: var(--text-main);
+            margin-bottom: 5px;
+        }
+
+        .product-desc {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+        }
+
+        .product-price {
+            font-size: 1.6rem;
+            color: var(--accent-gold);
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .buy-btn {
+            background-color: transparent;
+            color: var(--accent-gold);
+            border: 2px solid var(--accent-gold);
+            padding: 10px;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .product-card:hover .buy-btn {
+            background-color: var(--accent-gold);
+            color: #000;
+        }
+
+        .no-results {
+            display: none;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 1.2rem;
+            grid-column: 1 / -1;
+            padding: 40px;
+        }
+        
+        .cart-link {
+            color: #ffbb00;
+            text-decoration: none;
+            font-weight: 700;
+            background: #222;
+            padding: 5px 15px;
+            border-radius: 6px;
+            border: 1px solid #ffbb00;
+            transition: all 0.3s ease;
+        }
+
+        .cart-link:hover {
+            background-color: #ffbb00;
+            color: #000;
+        }
+        header,.filter-container{
+            zoom: 1.8; /* هذا سيكبر الشريط بنسبة 30% */
+        }
+    </style>
+</head>
+<body>
+
+    <!-- إضافة عنصر الصوت -->
+    <audio id="ClikToAdd" src="../sound/add.ogg"></audio>
+
+    <header>
+        <div style="color: var(--accent-gold); font-weight: 900; font-size: 1.2rem;">القاهرة للإطارات والبطاريات</div>
+        <a href="../cart.html" class="cart-link" id="cartCounter">السلة (0)</a>
+        <a href="../index.html" class="back-btn">&rarr; العودة للرئيسية</a>
+    </header>
+
+    <div class="section-header">
+        <h1>قسم الجنوط</h1>
+    </div>
+
+    <!-- فلتر الجنوط -->
+    <div class="filter-container">
+        <div class="filter-group">
+            <label for="sizeFilter">المقاس (بوصة)</label>
+            <select id="sizeFilter" onchange="filterRims()">
+                <option value="all">كل المقاسات</option>
+                <option value="15">15 بوصة</option>
+                <option value="16">16 بوصة</option>
+                <option value="17">17 بوصة</option>
+                <option value="18">18 بوصة</option>
+            </select>
+        </div>
+
+        <div class="filter-group">
+            <label for="typeFilter">النوع</label>
+            <select id="typeFilter" onchange="filterRims()">
+                <option value="all">كل الأنواع</option>
+                <option value="sport">سبور (ألمنيوم)</option>
+                <option value="steel">حديد</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- شبكة الجنوط -->
+    <div class="products-grid" id="rimsGrid">
+        
+        <div class="product-card" data-size="17" data-type="sport">
+            <div class="product-image"></div>
+            <div>
+                <h3 class="product-title">طقم جنوط BBS</h3>
+                <p class="product-desc">17 بوصة - سبور لونين</p>
+            </div>
+            <div>
+                <div class="product-price">12,500 ج.م</div>
+                <!-- استدعاء دالة الإضافة للسلة -->
+                <button class="buy-btn" onclick="addToCart('طقم جنوط BBS', '17 بوصة - سبور لونين', 12500, 'image/rims.jpg')">أضف إلى السلة</button>
+            </div>
+        </div>
+
+        <div class="product-card" data-size="15" data-type="steel">
+            <div class="product-image" style="background-image: none; display:flex; align-items:center; justify-content:center; color:#555;">صورة جنط حديد</div>
+            <div>
+                <h3 class="product-title">طقم جنوط حديد أصلي</h3>
+                <p class="product-desc">15 بوصة - أسود سادة</p>
+            </div>
+            <div>
+                <div class="product-price">3,000 ج.م</div>
+                <!-- استدعاء دالة الإضافة للسلة -->
+                <button class="buy-btn" onclick="addToCart('طقم جنوط حديد أصلي', '15 بوصة - أسود سادة', 3000, 'image/rims.jpg')">أضف إلى السلة</button>
+            </div>
+        </div>
+
+        <div class="product-card" data-size="16" data-type="sport">
+            <div class="product-image"></div>
+            <div>
+                <h3 class="product-title">طقم جنوط Vossen</h3>
+                <p class="product-desc">16 بوصة - سبور أسود مطفي</p>
+            </div>
+            <div>
+                <div class="product-price">9,800 ج.م</div>
+                <!-- استدعاء دالة الإضافة للسلة -->
+                <button class="buy-btn" onclick="addToCart('طقم جنوط Vossen', '16 بوصة - سبور أسود مطفي', 9800, 'image/rims.jpg')">أضف إلى السلة</button>
+            </div>
+        </div>
+
+        <!-- رسالة الخطأ -->
+        <div id="noResults" class="no-results">
+            عفواً، لا يوجد جنوط متطابقة مع بحثك حالياً.
+        </div>
+
+    </div>
+
+    <script>
+        // المتغيرات الأساسية للسلة والصوت
+        const clikSound = document.getElementById('ClikToAdd');
+        const CART_KEY = 'cairo_cart';
+
+        // دالة الفلترة (بقيت كما هي)
+        function filterRims() {
+            const selectedSize = document.getElementById('sizeFilter').value;
+            const selectedType = document.getElementById('typeFilter').value;
+            
+            const cards = document.querySelectorAll('.product-card');
+            let hasVisibleCards = false;
+
+            cards.forEach(card => {
+                const cardSize = card.getAttribute('data-size');
+                const cardType = card.getAttribute('data-type');
+
+                const sizeMatch = (selectedSize === 'all' || cardSize === selectedSize);
+                const typeMatch = (selectedType === 'all' || cardType === selectedType);
+
+                if (sizeMatch && typeMatch) {
+                    card.style.display = 'flex'; 
+                    hasVisibleCards = true;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            document.getElementById('noResults').style.display = hasVisibleCards ? 'none' : 'block';
+        }
+        
+        // دالة تحديث عداد السلة
+        function updateCartCount() {
+            let cart = JSON.parse(localStorage.getItem(CART_KEY)) || [];
+            
+            let totalItems = 0;
+            cart.forEach(item => {
+                totalItems += item.qty; 
+            });
+
+            const counterElement = document.getElementById('cartCounter');
+            if (counterElement) {
+                counterElement.innerText = `السلة (${totalItems})`;
+            }
+        }
+
+        // دالة إضافة المنتج إلى السلة
+        function addToCart(productName, productDesc, productPrice, productImage) {
+            // تشغيل تأثير الصوت
+            if (clikSound) {
+                clikSound.currentTime = 0; 
+                clikSound.play();
+            }
+
+            // استدعاء البيانات من السلة أو إنشاء سلة جديدة
+            let cart = JSON.parse(localStorage.getItem(CART_KEY)) || [];
+            
+            // التحقق مما إذا كان المنتج موجوداً بالفعل في السلة
+            let existingItem = cart.find(item => item.name === productName);
+
+            if (existingItem) {
+                existingItem.qty += 1;
+            } else {
+                cart.push({
+                    name: productName,
+                    desc: productDesc,
+                    price: productPrice,
+                    qty: 1,
+                    image: productImage
+                });
+            }
+
+            // حفظ السلة وتحديث العداد
+            localStorage.setItem(CART_KEY, JSON.stringify(cart));
+            updateCartCount(); 
+            
+            alert('تم إضافة المنتج بنجاح إلى السلة!');
+        }
+
+        // تشغيل العداد فور تحميل الصفحة
+        window.addEventListener('load', updateCartCount);
+    </script>
+
+</body>
+</html>

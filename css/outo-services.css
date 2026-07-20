@@ -1,0 +1,133 @@
+
+        :root {
+            --primary-gold: #ffc107;
+            --dark-bg: #111111;
+            --card-bg: #1a1a1a;
+            --text-color: #ffffff;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Cairo', sans-serif;
+            background-color: #222; /* لون الخلفية العام */
+            /* يمكنك استبدال اللون بصورة خلفية للورشة إذا أردت */
+            /* background-image: url('garage-bg.jpg'); background-size: cover; */
+            color: var(--text-color);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* تنسيق العنوان الرئيسي (خدماتنا) */
+        .section-title-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title-wrapper::before,
+        .section-title-wrapper::after {
+            content: '';
+            flex: 1;
+            height: 2px;
+            background-color: var(--primary-gold);
+            opacity: 0.7;
+        }
+
+        .section-title {
+            background-color: var(--dark-bg);
+            border: 2px dashed var(--primary-gold);
+            border-radius: 30px;
+            padding: 5px 40px;
+            margin: 0 20px;
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--text-color);
+            text-align: center;
+        }
+
+        /* شبكة الكروت (Grid) */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            row-gap: 50px; /* مسافة أكبر رأسياً لتجنب تداخل الأيقونات */
+        }
+
+        /* تنسيق كارت الخدمة */
+        .service-card {
+            background-color: var(--dark-bg);
+            border: 2px solid var(--primary-gold);
+            border-radius: 12px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(255, 193, 7, 0.2);
+        }
+
+        .service-card h3 {
+            margin: 0;
+            padding: 15px 10px;
+            text-align: center;
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--text-color);
+        }
+
+        .card-image {
+            width: 100%;
+            height: 180px;
+            background-color: #333;
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            /* فلتر بسيط لتغميق الصور قليلاً ليتناسب مع الستايل */
+            filter: brightness(0.85); 
+        }
+
+        /* تنسيق الأيقونة الدائرية السفلية */
+        .card-icon {
+            position: absolute;
+            bottom: -25px; /* لجعلها تخرج من إطار الكارت للأسفل */
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 50px;
+            background-color: var(--dark-bg);
+            border: 2px solid var(--primary-gold);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+        }
+
+        .card-icon i {
+            color: var(--primary-gold);
+            font-size: 24px;
+        }
+
+        /* شاشات الموبايل الصغيرة */
+        @media (max-width: 600px) {
+            .section-title {
+                font-size: 22px;
+                padding: 5px 20px;
+            }
+        }

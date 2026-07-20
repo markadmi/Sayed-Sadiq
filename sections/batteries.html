@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+
+    <title>قسم البطاريات - القاهرة للإطارات والبطاريات</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-color: #0a0a0a;
+            --card-bg: #1a1a1a;
+            --accent-gold: #ffbb00;
+            --text-main: #ffffff;
+            --text-muted: #aaaaaa;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Cairo', sans-serif;
+            margin: 0;
+            padding: 0;
+
+        }
+
+        header {
+            padding: 20px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #333;
+        }
+
+        .header-links {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .cart-link {
+            color: var(--accent-gold);
+            text-decoration: none;
+            font-weight: 700;
+            background: #222;
+            padding: 5px 15px;
+            border-radius: 6px;
+            border: 1px solid var(--accent-gold);
+        }
+
+        .section-header { text-align: center; padding: 40px 20px; }
+        .section-header h1 { color: var(--accent-gold); }
+
+        /* حاوية الفلتر */
+        .filter-container {
+            background-color: var(--card-bg);
+            padding: 20px;
+            max-width: 600px;
+            margin: 0 auto 30px;
+            border-radius: 12px;
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        select {
+            background-color: #000;
+            color: white;
+            padding: 10px;
+            border: 1px solid #444;
+            border-radius: 6px;
+            cursor: pointer;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            padding: 0 5% 50px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .product-card {
+            background-color: var(--card-bg);
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            border: 1px solid #333;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-gold);
+        }
+
+        /* تنسيق صورة المنتج */
+        .product-image {
+            width: 100%;
+            height: 200px;
+            background-color: #000;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .product-title { 
+            color: var(--accent-gold); 
+            margin: 10px 0; 
+            font-size: 1.3rem;
+        }
+        
+        .product-desc {
+            color: var(--text-muted);
+            margin: 5px 0 15px;
+            font-size: 0.9rem;
+        }
+
+        .product-price {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        /* زر الإضافة للسلة */
+        .buy-btn {
+            background-color: transparent;
+            color: var(--accent-gold);
+            border: 1px solid var(--accent-gold);
+            padding: 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-family: 'Cairo', sans-serif;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-top: auto;
+        }
+
+        .buy-btn:hover {
+            background-color: var(--accent-gold);
+            color: #000;
+        }
+        header,.filter-container {
+           zoom: 1.8; /* هذا سيكبر الشريط بنسبة 30% */
+        }
+    </style>
+</head>
+<body>
+    <audio id="ClikToAdd" src="../sound/add.ogg"></audio>
+    <header>
+        <div style="color: var(--accent-gold); font-weight: 900; font-size: 1.2rem;">القاهرة للإطارات والبطاريات</div>
+        <div class="header-links">
+            <!-- رابط سلة المشتريات -->
+            <a href="../cart.html" class="cart-link" id="cartCounter">السلة (0)</a>
+            <a href="../index.html" style="color:white; text-decoration:none;">&larr; العودة</a>
+        </div>
+    </header>
+
+    <div class="section-header">
+        <h1>قسم البطاريات</h1>
+        <p style="color: var(--text-muted);">اختر قوة الأمبير المناسبة لسيارتك</p>
+    </div>
+
+    <!-- فلتر البطاريات -->
+    <div class="filter-container">
+        <select id="ampereFilter" onchange="filterBatteries()">
+            <option value="all">كل القدرات (الأمبير)</option>
+            <option value="50">50 أمبير</option>
+            <option value="70">70 أمبير</option>
+            <option value="90">90 أمبير</option>
+        </select>
+    </div>
+
+    <!-- شبكة بطاريات -->
+    <div class="products-grid" id="batteriesGrid">
+        
+        <!-- قمنا بإضافة onclick="addToCart(this)" للزر -->
+        <div class="product-card" data-amp="50">
+            <div class="product-image" style="background-image: url('image/batteries.jpg');"></div>
+            <h3 class="product-title">بطارية كلورايد</h3>
+            <p class="product-desc">50 أمبير - ضمان سنة - أداء مستقر ومناسب للسيارات الصغيرة.</p>
+            <p class="product-price">1,200 ج.م</p>
+           <button class="buy-btn" onclick="addToCart('بطارية كلورايد', '50 امبير', 1200, 'image/batteries.jpg')">أضف للسلة</button>
+        </div>
+
+        <div class="product-card" data-amp="70">
+            <div class="product-image" style="background-image: url('image/batteries.jpg');"></div>
+            <h3 class="product-title">بطارية فيكتا</h3>
+            <p class="product-desc">70 أمبير - أداء عالي - العمر الافتراضي الطويل للسيارات العائلية.</p>
+            <p class="product-price">1,800 ج.م</p>
+            <button class="buy-btn" onclick="addToCart('بطارية فيكتا', '70 أمبير - أداء عالي', 1800, 'image/batteries.jpg')">أضف إلى السلة</button>
+        </div>
+
+        <div class="product-card" data-amp="90">
+            <div class="product-image" style="background-image: url('image/batteries.jpg');"></div>
+            <h3 class="product-title">بطارية بوش</h3>
+            <p class="product-desc">90 أمبير - ألماني - قوة تشغيل قصوى للسيارات الدفع الرباعي والنقل.</p>
+            <p class="product-price">2,500 ج.م</p>
+            <button class="buy-btn" onclick="addToCart('بطارية بوش', '90 أمبير - أداء عالي', 2500, 'image/batteries.jpg')">أضف إلى السلة</button>
+        </div>
+
+    </div>
+
+    <script>
+        // جلب عنصر الصوت
+        const clikSound = document.getElementById('ClikToAdd');
+
+        // ----------------------------------------------------
+        // نظام فلترة البطاريات
+        // ----------------------------------------------------
+        function filterBatteries() {
+            const val = document.getElementById('ampereFilter').value;
+            const cards = document.querySelectorAll('.product-card');
+            
+            cards.forEach(card => {
+                const amp = card.getAttribute('data-amp');
+                if (val === 'all' || amp === val) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // ----------------------------------------------------
+        // نظام سلة المشتريات (JSON & LocalStorage)
+        // ----------------------------------------------------
+
+        // اسم المفتاح الموحد لتخزين السلة لضمان عدم حدوث أخطاء
+        const CART_KEY = 'cairo_cart';
+
+        // 1. دالة تحديث عداد السلة في الأعلى
+        function updateCartCount() {
+            // جلب البيانات من LocalStorage باستخدام المفتاح الموحد
+            let cart = JSON.parse(localStorage.getItem(CART_KEY)) || [];
+            
+            // حساب إجمالي الكميات
+            let totalItems = 0;
+            cart.forEach(item => {
+                // استخدام qty لتتطابق مع الدالة التي تضيف المنتج
+                totalItems += item.qty; 
+            });
+
+            // تحديث الرقم في الرابط (العداد)
+            document.getElementById('cartCounter').innerText = `السلة (${totalItems})`;
+        }
+
+        // 2. دالة إضافة المنتج للسلة
+        function addToCart(productName, productDesc, productPrice, productImage) {
+            // تشغيل الصوت مع إعادته للصفر لتجنب تأخير التشغيل عند النقر السريع المتتالي
+            if (clikSound) {
+                clikSound.currentTime = 0; 
+                clikSound.play();
+            }
+
+            // جلب السلة الموجودة باستخدام المفتاح الموحد
+            let cart = JSON.parse(localStorage.getItem(CART_KEY)) || [];
+
+            // التحقق لو المنتج تم إضافته سابقاً لزيادة الكمية فقط بدلاً من تكرار العنصر
+            let existingItem = cart.find(item => item.name === productName);
+
+            if (existingItem) {
+                existingItem.qty += 1;
+            } else {
+                // إضافة الكائن بالخصائص المتوافقة
+                cart.push({
+                    name: productName,
+                    desc: productDesc,
+                    price: productPrice,
+                    qty: 1, // توحيد اسم الكمية هنا ليكون qty
+                    image: productImage
+                });
+            }
+
+            // الحفظ في الذاكرة المحلية للمتصفح
+            localStorage.setItem(CART_KEY, JSON.stringify(cart));
+            
+            // تحديث العداد في الأعلى فوراً بعد الإضافة ليظهر الرقم الجديد للمستخدم
+            updateCartCount(); 
+            
+            alert('تم إضافة المنتج بنجاح إلى السلة!');
+        }
+
+        // تشغيل التحديث فور تحميل الصفحة ليعرض العدد السابق (إن وُجد)
+        window.onload = function() {
+            updateCartCount();
+        };
+    </script>
+
+</body>
+</html>
